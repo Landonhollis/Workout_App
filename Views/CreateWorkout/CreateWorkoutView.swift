@@ -16,57 +16,53 @@ enum CreateWorkoutStep {
 }
 
 struct CreateWorkoutView: View {
-    @StateObject private var workoutManager = WorkoutManager()
-    @State private var workoutData = WorkoutCreationData()
-    @State private var currentStep = 0
-    @Environment(\.dismiss) private var dismiss
+    @StateObject private var viewModel = CreateWorkoutViewModel()
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationView {
-            VStack {
-                switch currentStep {
-                case 0:
-                    WorkoutTypeView(
-                        workoutData: $workoutData,
-                        onNext: { currentStep += 1 }
-                    )
-                case 1:
-                    MuscleSelectionView(
-                        workoutData: $workoutData,
-                        onNext: { currentStep += 1 },
-                        onBack: { currentStep -= 1 }
-                    )
-                case 2:
-                    ScheduleSelectionView(
-                        workoutData: $workoutData,
-                        onNext: { currentStep += 1 },
-                        onBack: { currentStep -= 1 }
-                    )
-                case 3:
-                    WorkoutDetailsView(
-                        workoutData: $workoutData,
-                        onBack: { currentStep -= 1 },
-                        onComplete: {
-                            saveWorkout()
-                            dismiss()
+            Form {
+                Section {
+                    NavigationLink(destination: WorkoutTypeSelectionView(viewModel: viewModel)) {
+                        HStack {
+                            Text("Workout Type")
+                            Spacer()
+                            Text(viewModel.workoutType?.rawValue ?? "Select")
+                                .foregroundColor(.gray)
                         }
-                    )
-                default:
-                    EmptyView()
+                    }
+                    
+                    NavigationLink(destination: MuscleSelectionView(viewModel: viewModel)) {
+                        HStack {
+                            Text("Muscle Groups")
+                            Spacer()
+                            Text(viewModel.selectedMuscleGroups.isEmpty ? "Select" : "\(viewModel.selectedMuscleGroups.count) selected")
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    
+                    NavigationLink(destination: ScheduleSelectionView(viewModel: viewModel)) {
+                        HStack {
+                            Text("Schedule")
+                            Spacer()
+                            Text(viewModel.selectedDays.isEmpty ? "Select" : "\(viewModel.selectedDays.count) days")
+                                .foregroundColor(.gray)
+                        }
+                    }
                 }
             }
+            .navigationTitle("Create Workout")
+            .navigationBarItems(
+                leading: Button("Cancel") {
+                    dismiss()
+                },
+                trailing: Button("Save") {
+                    viewModel.saveWorkout()
+                    dismiss()
+                }
+                .disabled(!viewModel.isValid)
+            )
         }
-    }
-    
-    private func saveWorkout() {
-        let workout = Workout(
-            name: workoutData.name,
-            type: workoutData.type,
-            muscleGroups: workoutData.muscleGroups,
-            exercises: workoutData.exercises,
-            scheduledDays: workoutData.scheduledDays
-        )
-        workoutManager.saveWorkout(workout)
     }
 }
 
@@ -80,15 +76,6 @@ struct WorkoutCreationData {
     
     var isValid: Bool {
         !name.isEmpty  // Simplified since type will always have a value
-    }
-}
-
-NavigationLink(destination: WorkoutTypeSelectionView(workoutData: $workoutData)) {
-    HStack {
-        Text("Workout Type")
-        Spacer()
-        Text(workoutData.workoutType?.rawValue ?? "Select")
-            .foregroundColor(.gray)
     }
 }
 

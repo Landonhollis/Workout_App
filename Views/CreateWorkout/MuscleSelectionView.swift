@@ -1,44 +1,27 @@
 struct MuscleSelectionView: View {
-    @Binding var workoutData: WorkoutCreationData
-    let onNext: () -> Void
-    let onBack: () -> Void
+    @ObservedObject var viewModel: CreateWorkoutViewModel
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Target Muscle Groups")
-                .font(.title)
-                .padding(.top)
-            
-            ScrollView {
-                VStack(spacing: 15) {
-                    ForEach(MuscleGroup.allCases, id: \.self) { muscle in
-                        Toggle(muscle.rawValue.capitalized, isOn: Binding(
-                            get: { workoutData.muscleGroups.contains(muscle) },
-                            set: { isSelected in
-                                if isSelected {
-                                    workoutData.muscleGroups.insert(muscle)
-                                } else {
-                                    workoutData.muscleGroups.remove(muscle)
-                                }
-                            }
-                        ))
-                        .padding()
-                        .background(Color(.systemBackground))
-                        .cornerRadius(10)
+        List {
+            ForEach(MuscleGroup.allCases, id: \.self) { muscleGroup in
+                Button(action: {
+                    if viewModel.selectedMuscleGroups.contains(muscleGroup) {
+                        viewModel.selectedMuscleGroups.remove(muscleGroup)
+                    } else {
+                        viewModel.selectedMuscleGroups.insert(muscleGroup)
+                    }
+                }) {
+                    HStack {
+                        Text(muscleGroup.rawValue)
+                        Spacer()
+                        if viewModel.selectedMuscleGroups.contains(muscleGroup) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.blue)
+                        }
                     }
                 }
             }
-            
-            Button("Continue") { onNext() }
-                .buttonStyle(.borderedProminent)
-                .padding()
         }
-        .padding()
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Back", action: onBack)
-            }
-        }
+        .navigationTitle("Select Muscle Groups")
     }
 } 

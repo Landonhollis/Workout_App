@@ -1,44 +1,27 @@
 struct ScheduleSelectionView: View {
-    @Binding var workoutData: WorkoutCreationData
-    let onNext: () -> Void
-    let onBack: () -> Void
+    @ObservedObject var viewModel: CreateWorkoutViewModel
     
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Schedule Workout")
-                .font(.title)
-                .padding(.top)
-            
-            ScrollView {
-                VStack(spacing: 15) {
-                    ForEach(DayOfWeek.allCases, id: \.self) { day in
-                        Toggle(day.displayName, isOn: Binding(
-                            get: { workoutData.scheduledDays.contains(day) },
-                            set: { isSelected in
-                                if isSelected {
-                                    workoutData.scheduledDays.insert(day)
-                                } else {
-                                    workoutData.scheduledDays.remove(day)
-                                }
-                            }
-                        ))
-                        .padding()
-                        .background(Color(.systemBackground))
-                        .cornerRadius(10)
+        List {
+            ForEach(DayOfWeek.allCases, id: \.self) { day in
+                Button(action: {
+                    if viewModel.selectedDays.contains(day) {
+                        viewModel.selectedDays.remove(day)
+                    } else {
+                        viewModel.selectedDays.insert(day)
+                    }
+                }) {
+                    HStack {
+                        Text(day.rawValue)
+                        Spacer()
+                        if viewModel.selectedDays.contains(day) {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.blue)
+                        }
                     }
                 }
             }
-            
-            Button("Continue") { onNext() }
-                .buttonStyle(.borderedProminent)
-                .padding()
         }
-        .padding()
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button("Back", action: onBack)
-            }
-        }
+        .navigationTitle("Select Schedule")
     }
 } 
