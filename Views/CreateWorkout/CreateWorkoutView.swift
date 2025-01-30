@@ -83,3 +83,12 @@ struct WorkoutCreationData {
     }
 }
 
+NavigationLink(destination: WorkoutTypeSelectionView(workoutData: $workoutData)) {
+    HStack {
+        Text("Workout Type")
+        Spacer()
+        Text(workoutData.workoutType?.rawValue ?? "Select")
+            .foregroundColor(.gray)
+    }
+}
+
