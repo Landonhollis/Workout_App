@@ -50,6 +50,12 @@ struct CreateWorkoutView: View {
                         }
                     }
                 }
+                
+                Section {
+                    NavigationLink(destination: WorkoutDetailsView(viewModel: viewModel)) {
+                        Text("Review Workout Details")
+                    }
+                }
             }
             .navigationTitle("Create Workout")
             .navigationBarItems(
