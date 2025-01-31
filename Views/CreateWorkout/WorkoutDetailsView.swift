@@ -5,6 +5,10 @@ struct WorkoutDetailsView: View {
     
     var body: some View {
         List {
+            Section("Workout Name") {
+                Text(viewModel.workoutName)
+            }
+            
             Section("Workout Type") {
                 Text(viewModel.workoutType?.rawValue ?? "Not Selected")
             }

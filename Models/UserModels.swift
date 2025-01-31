@@ -141,6 +141,7 @@ struct Exercise: Identifiable {
 
 struct Workout: Identifiable {
     let id = UUID()
+    var name: String
     var type: WorkoutType
     var muscleGroups: Set<MuscleGroup>
     var schedule: Set<DayOfWeek>

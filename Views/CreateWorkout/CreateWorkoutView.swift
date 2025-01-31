@@ -23,6 +23,8 @@ struct CreateWorkoutView: View {
         NavigationView {
             Form {
                 Section {
+                    TextField("Workout Name", text: $viewModel.workoutName)
+                    
                     NavigationLink(destination: WorkoutTypeSelectionView(viewModel: viewModel)) {
                         HStack {
                             Text("Workout Type")
@@ -48,6 +50,12 @@ struct CreateWorkoutView: View {
                             Text(viewModel.selectedDays.isEmpty ? "Select" : "\(viewModel.selectedDays.count) days")
                                 .foregroundColor(.gray)
                         }
+                    }
+                }
+                
+                Section {
+                    NavigationLink(destination: AddExerciseView(viewModel: viewModel)) {
+                        Text("Add Exercises")
                     }
                 }
                 
