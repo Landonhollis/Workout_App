@@ -1,5 +1,3 @@
-import SwiftUI
-
 struct MuscleSelectionView: View {
     @ObservedObject var viewModel: CreateWorkoutViewModel
     

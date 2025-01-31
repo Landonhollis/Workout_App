@@ -1,3 +1,5 @@
+import: SwiftUI
+
 struct WorkoutDetailsView: View {
     @Binding var workoutData: WorkoutCreationData
     let onBack: () -> Void

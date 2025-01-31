@@ -1,3 +1,5 @@
+import Foundation
+
 class CreateWorkoutViewModel: ObservableObject {
     @Published var workoutType: WorkoutType?
     @Published var selectedMuscleGroups: Set<MuscleGroup> = []

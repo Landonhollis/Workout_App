@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B6F1A0A82D46B1E400857D95 /* Workout_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F1A0A72D46B1E400857D95 /* Workout_AppApp.swift */; };
 		B6F1A0AC2D46B1E700857D95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6F1A0AB2D46B1E700857D95 /* Assets.xcassets */; };
+		B6F1A2912D4D090700857D95 /* CreateWorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F1A2902D4D090700857D95 /* CreateWorkoutViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 		B6F1A0AB2D46B1E700857D95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6F1A0B42D46B1E800857D95 /* Workout_AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Workout_AppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6F1A0BE2D46B1E800857D95 /* Workout_AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Workout_AppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6F1A2902D4D090700857D95 /* CreateWorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CreateWorkoutViewModel.swift; path = ViewModels/CreateWorkoutViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -107,6 +109,7 @@
 		B6F1A09B2D46B1E400857D95 = {
 			isa = PBXGroup;
 			children = (
+				B6F1A2902D4D090700857D95 /* CreateWorkoutViewModel.swift */,
 				B6F1A0AB2D46B1E700857D95 /* Assets.xcassets */,
 				B6F1A0A72D46B1E400857D95 /* Workout_AppApp.swift */,
 				B6F1A0E82D46C9DB00857D95 /* Views */,
@@ -281,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6F1A2912D4D090700857D95 /* CreateWorkoutViewModel.swift in Sources */,
 				B6F1A0A82D46B1E400857D95 /* Workout_AppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
