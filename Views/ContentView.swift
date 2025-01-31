@@ -10,55 +10,26 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject private var workoutManager: WorkoutManager
     @EnvironmentObject private var userManager: UserManager
+    @State private var showingShareSheet = false
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                Text("Workout App")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.top)
+        NavigationView {
+            List {
+                // Your main menu items
                 
-                GridLayout {
-                    // Do Workout Button
-                    NavigationLink(destination: DoWorkoutView()) {
-                        MenuButton(
-                            title: "Do Workout",
-                            systemImage: "figure.run",
-                            color: .blue
-                        )
-                    }
-                    
-                    // Create Workout Button
-                    NavigationLink(destination: CreateWorkoutView()) {
-                        MenuButton(
-                            title: "Create Workout",
-                            systemImage: "plus.circle",
-                            color: .green
-                        )
-                    }
-                    
-                    // History Button
-                    NavigationLink(destination: WorkoutHistoryView()) {
-                        MenuButton(
-                            title: "History",
-                            systemImage: "clock.arrow.circlepath",
-                            color: .orange
-                        )
-                    }
-                    
-                    // Settings Button
-                    NavigationLink(destination: SettingsView()) {
-                        MenuButton(
-                            title: "Settings",
-                            systemImage: "gearshape.fill",
-                            color: .gray
-                        )
+                Button(action: {
+                    showingShareSheet = true
+                }) {
+                    HStack {
+                        Image(systemName: "square.and.arrow.up")
+                        Text("Send Workout to Gymbro")
                     }
                 }
-                .padding()
             }
-            .navigationBarHidden(true)
+            .navigationTitle("Workouts")
+            .sheet(isPresented: $showingShareSheet) {
+                ShareWorkoutView()
+            }
         }
     }
 }
