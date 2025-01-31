@@ -5,7 +5,7 @@ struct ScheduleSelectionView: View {
     
     var body: some View {
         List {
-            ForEach(Array(DayOfWeek.allCases), id: \.self) { day in
+            ForEach(DayOfWeek.allCases, id: \.self) { day in
                 Button(action: {
                     if viewModel.selectedDays.contains(day) {
                         viewModel.selectedDays.remove(day)
