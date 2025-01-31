@@ -5,6 +5,8 @@
 //  Created by Landon Hollis on 1/26/25.
 //
 
+import Foundation
+
 struct UserPreferences: Codable {
     let id: UUID
     var isCustomImageEnabled: Bool
@@ -67,26 +69,30 @@ enum AppTheme: String, Codable, CaseIterable {
     case dark
 }
 
-enum DayOfWeek: Int, Codable, CaseIterable {
-    case sunday = 1
-    case monday = 2
-    case tuesday = 3
-    case wednesday = 4
-    case thursday = 5
-    case friday = 6
-    case saturday = 7
-    
-    var displayName: String {
-        switch self {
-            case .sunday: return "Sunday"
-            case .monday: return "Monday"
-            case .tuesday: return "Tuesday"
-            case .wednesday: return "Wednesday"
-            case .thursday: return "Thursday"
-            case .friday: return "Friday"
-            case .saturday: return "Saturday"
-        }
-    }
+enum WorkoutType: String, CaseIterable {
+    case strength = "Strength"
+    case cardio = "Cardio"
+    case hiit = "HIIT"
+    case flexibility = "Flexibility"
+}
+
+enum MuscleGroup: String, CaseIterable {
+    case chest = "Chest"
+    case back = "Back"
+    case legs = "Legs"
+    case shoulders = "Shoulders"
+    case arms = "Arms"
+    case core = "Core"
+}
+
+enum DayOfWeek: String, CaseIterable {
+    case monday = "Monday"
+    case tuesday = "Tuesday"
+    case wednesday = "Wednesday"
+    case thursday = "Thursday"
+    case friday = "Friday"
+    case saturday = "Saturday"
+    case sunday = "Sunday"
 }
 
 enum ReminderTime: String, Codable, CaseIterable {
@@ -122,5 +128,22 @@ enum ReminderTime: String, Codable, CaseIterable {
         let timeString = String(format: "%02d:%02d", hour, roundedMinute)
         return ReminderTime(rawValue: timeString) ?? ReminderTime.allCases[0]
     }
+}
+
+struct Exercise: Identifiable {
+    let id = UUID()
+    var name: String
+    var muscleGroup: MuscleGroup
+    var sets: Int
+    var reps: Int
+    var weight: Double
+}
+
+struct Workout: Identifiable {
+    let id = UUID()
+    var type: WorkoutType
+    var muscleGroups: Set<MuscleGroup>
+    var schedule: Set<DayOfWeek>
+    var exercises: [Exercise]
 }
 

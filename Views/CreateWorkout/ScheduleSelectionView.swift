@@ -1,9 +1,11 @@
+import SwiftUI
+
 struct ScheduleSelectionView: View {
     @ObservedObject var viewModel: CreateWorkoutViewModel
     
     var body: some View {
         List {
-            ForEach(DayOfWeek.allCases, id: \.self) { day in
+            ForEach(Array(DayOfWeek.allCases), id: \.self) { day in
                 Button(action: {
                     if viewModel.selectedDays.contains(day) {
                         viewModel.selectedDays.remove(day)
