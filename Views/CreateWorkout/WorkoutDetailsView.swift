@@ -28,6 +28,22 @@ struct WorkoutDetailsView: View {
                     }
                 }
             }
+            
+            Section("Exercises") {
+                if viewModel.exercises.isEmpty {
+                    Text("No exercises added")
+                } else {
+                    ForEach(viewModel.exercises) { exercise in
+                        VStack(alignment: .leading) {
+                            Text(exercise.name)
+                                .font(.headline)
+                            Text("\(exercise.sets) sets × \(exercise.reps) reps at \(exercise.weight, specifier: "%.1f") lbs")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                }
+            }
         }
         .navigationTitle("Workout Details")
     }
