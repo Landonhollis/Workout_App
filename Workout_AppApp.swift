@@ -14,6 +14,7 @@ struct Workout_AppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .accentColor(.blue)  // Or any color you prefer
         }
     }
 }
