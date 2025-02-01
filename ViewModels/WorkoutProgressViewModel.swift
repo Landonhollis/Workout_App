@@ -1,3 +1,5 @@
+import SwiftUI
+
 class WorkoutProgressViewModel: ObservableObject {
     @Published var completedExercises: Set<UUID> = []  // Exercise IDs
     

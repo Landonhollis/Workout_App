@@ -1,3 +1,5 @@
+import Foundation
+
 struct SharedWorkout: Codable {
     let workout: Workout
     let sharedDate: Date
